@@ -18,18 +18,20 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
+import java.io.File;
+
 /**
  * @author Daniel Yokomizo
  */
 public class ProcessPiperTest {
 	@Test
-	public void sh() throws Exception {
-		final ProcessPiper p = new ProcessPiper("sh");
+	public void cmdOrSh() throws Exception {
+		final ProcessPiper p = new ProcessPiper(System.getProperty("os.name").startsWith("Windows") ? "cmd" : "sh");
 		try {
 			assertThat(p.isRunning(), is(true));
-			System.out.println(p.pipe("pwd\n"));
-			System.out.println(p.pipe("ls -lh\n"));
-			System.out.println(p.pipe("exit\n"));
+			System.out.println(p.pipe("echo 'foo'" + System.lineSeparator()));
+			System.out.println(p.pipe("exit" + System.lineSeparator()));
+			p.waitFor();
 			assertThat(p.isRunning(), is(false));
 		} finally {
 			p.close();
