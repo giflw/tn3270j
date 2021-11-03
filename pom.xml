@@ -5,7 +5,7 @@
 
     <groupId>com.itquasar.multiverse.tn3270j</groupId>
     <artifactId>tn3270j</artifactId>
-    <version>0.2.0-SNAPSHOT</version>
+    <version>0.2.0</version>
 
     <name>TN3270j</name>
     <description>TN3270 Java library wrapping x3270/wc3270</description>
@@ -47,6 +47,12 @@
     </developers>
 
     <dependencies>
+        <dependency>
+            <groupId>org.beanshell</groupId>
+            <artifactId>bsh</artifactId>
+            <version>2.0b5</version>
+        </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -116,6 +122,21 @@
                 <version>2.19.1</version>
                 <configuration>
                     <printSummary>false</printSummary>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>com.itquasar.multiverse.tn3270j.TN3270jShell</mainClass>
                 </configuration>
             </plugin>
         </plugins>

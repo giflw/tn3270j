@@ -32,6 +32,7 @@ public class ProcessPiperTest {
 			System.out.println(p.pipe("echo 'foo'" + System.lineSeparator()));
 			System.out.println(p.pipe("exit" + System.lineSeparator()));
 			p.waitFor();
+			Thread.sleep(500);
 			assertThat(p.isRunning(), is(false));
 		} finally {
 			p.close();

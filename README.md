@@ -1,6 +1,14 @@
 # TN3270j
+
 TN3270 Java library wrapping x3270/wc3270
 
+To run x3270 wrapper with maven use:
+
+```shell
+.\mvnw package exec:java '-Dexec.args="implementationId path/to/ws3270/or/s3270'
+```
+
+where `implementationId` is only `3270/j3270` by now. It means TN3270j will be using https://github.com/3270/j3270 implementation under the hood.
 
 ## Based on 
 

@@ -1443,7 +1443,7 @@ public final class J3270 implements Cloneable, Closeable {
 		piper.close();
 	}
 
-	private String perform(String action, Timeout timeout) throws J3270Exception {
+	public String perform(String action, Timeout timeout) throws J3270Exception {
 		checkState(builder == null, "Still configuring %s", builder);
 		checkState(piper.isRunning(), "Piper is not running, can not execute: %s", action);
 		try {
@@ -1472,6 +1472,9 @@ public final class J3270 implements Cloneable, Closeable {
 					data.add(s.substring(6, i));
 					s = s.substring(i + 1);
 				}
+			}
+			if (s.contains("[Press <Enter>]")) {
+				return;
 			}
 			status = new Status(s);
 		} finally {
