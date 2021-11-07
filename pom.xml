@@ -5,7 +5,7 @@
 
     <groupId>com.itquasar.multiverse.tn3270j</groupId>
     <artifactId>tn3270j</artifactId>
-    <version>0.2.1-SNAPSHOT</version>
+    <version>0.3.0</version>
 
     <name>TN3270j</name>
     <description>TN3270 Java library wrapping x3270/wc3270</description>
@@ -33,20 +33,34 @@
         </license>
     </licenses>
 
+
     <developers>
         <developer>
+        </developer>
+    </developers>
+    <contributors>
+        <contributor>
             <name>Daniel Yokomizo</name>
             <email>dyokomizo@j3270.com</email>
             <organization>j3270</organization>
-        </developer>
-        <developer>
-            <id>filipesimoes</id>
+            <organizationUrl>https://github.com/3270/j3270</organizationUrl>
+        </contributor>
+        <contributor>
             <name>Filipe Simoes</name>
             <email>835586+filipesimoes@users.noreply.github.com</email>
-        </developer>
-    </developers>
+            <organization>filipesimoes</organization>
+            <organizationUrl>https://github.com/filipesimoes/j3270</organizationUrl>
+        </contributor>
+    </contributors>
 
     <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.22</version>
+            <scope>provided</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.beanshell</groupId>
             <artifactId>bsh</artifactId>

@@ -16,6 +16,7 @@ package com.j3270.base;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
@@ -25,6 +26,7 @@ import java.io.File;
  */
 public class ProcessPiperTest {
 	@Test
+	@Ignore
 	public void cmdOrSh() throws Exception {
 		final ProcessPiper p = new ProcessPiper(System.getProperty("os.name").startsWith("Windows") ? "cmd" : "sh");
 		try {

@@ -12,7 +12,21 @@ public interface TN3270j extends AutoCloseable {
      */
     WaitMode getDefaultWaitMode();
 
+    void start();
+
+    void connect(String url);
+
     void open(String url);
+
+    boolean started();
+
+    boolean connected();
+
+    TN3270Status status();
+
+    void disconnect();
+
+    void stop();
 
     void close();
 
@@ -40,6 +54,7 @@ public interface TN3270j extends AutoCloseable {
 
     /**
      * Writes in the actual cursor position.
+     *
      * @param content Content to write.
      */
     default void write(String content) {
@@ -68,7 +83,7 @@ public interface TN3270j extends AutoCloseable {
      * @param waitMode x3270 wait mode.
      */
     default void wait(WaitMode waitMode) {
-        this.wait(-1, waitMode);
+        this.wait(0, waitMode);
     }
 
 
@@ -84,11 +99,23 @@ public interface TN3270j extends AutoCloseable {
 
     /**
      * Wait for given seconds or for the given event with seconds timeout.
-     * If seconds equals 0, waits for event with no timeout.
+     * <ul>
+     * <li>If seconds equals 0, waits for event with no timeout.</li>
+     * <li>If seconds equals 0 and wait mode is {@link WaitMode#Seconds}, waits 0 seconds. </li>
+     * </ul>
      *
      * @param seconds  Seconds converted to float value using {@link Number#floatValue()}.
      * @param waitMode x3270 wait mode.
      */
     void wait(Number seconds, WaitMode waitMode);
+
+
+    /**
+     * Move cursor to given absolute position.
+     *
+     * @param row Row starting with 1.
+     * @param col Column starting with 1.
+     */
+    void move(int row, int col);
 
 }

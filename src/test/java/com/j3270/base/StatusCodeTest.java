@@ -30,7 +30,7 @@ import org.junit.Test;
 /**
  * @author Daniel Yokomizo
  */
-public class StatusTest {
+public class StatusCodeTest {
 	@Test
 	public void keyboardState() {
 		assertThat(s.keyboardState(), equalTo(Unlocked));

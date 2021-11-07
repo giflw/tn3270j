@@ -1,5 +1,6 @@
 package com.itquasar.multiverse.tn3270j.impl;
 
+import com.itquasar.multiverse.tn3270j.TN3270Status;
 import com.itquasar.multiverse.tn3270j.TN3270j;
 import com.itquasar.multiverse.tn3270j.TN3270jException;
 import com.itquasar.multiverse.tn3270j.WaitMode;
@@ -15,16 +16,13 @@ public final class J3270From3270 implements TN3270j {
 
     public static final String IMPLEMENTATION_ID = "3270/j3270";
 
-    private final J3270 j3270;
+    private final ProcessBuilder processBuilder;
+    private J3270 j3270;
 
     private final WaitMode defaultWaitMode;
 
     public J3270From3270(ProcessBuilder processBuilder, WaitMode defaultWaitMode) {
-        this(sneakyThrow(() -> new J3270(new ProcessPiper(processBuilder))), defaultWaitMode);
-    }
-
-    public J3270From3270(J3270 j3270, WaitMode defaultWaitMode) {
-        this.j3270 = j3270;
+        this.processBuilder = processBuilder;
         this.defaultWaitMode = defaultWaitMode;
     }
 
@@ -33,27 +31,68 @@ public final class J3270From3270 implements TN3270j {
         return IMPLEMENTATION_ID;
     }
 
-
     @Override
     public WaitMode getDefaultWaitMode() {
         return this.defaultWaitMode;
     }
 
     @Override
-    public void open(String url) {
+    public void start() {
+        if (this.j3270 == null) {
+            this.j3270 = sneakyThrow(() -> new J3270(new ProcessPiper(this.processBuilder)));
+        }
+    }
+
+    @Override
+    public void connect(String url) {
         sneakyThrow(() -> {
-            j3270.connect(url);
+            this.j3270.connect(url);
+            return null;
+        });
+    }
+
+    @Override
+    public void open(String url) {
+        this.start();
+        this.connect(url);
+    }
+
+    @Override
+    public boolean started() {
+        return sneakyThrow(() -> j3270 != null && j3270.isRunning());
+    }
+
+
+    @Override
+    public boolean connected() {
+        return started() && status().getConnectionState() != null && status().getConnectionState().connected();
+    }
+
+    @Override
+    public TN3270Status status() {
+        return TN3270Status.from(j3270.getStatus());
+    }
+
+    @Override
+    public void disconnect() {
+        sneakyThrow(() -> {
+            j3270.disconnect();
+            return null;
+        });
+    }
+
+    @Override
+    public void stop() {
+        this.j3270 = sneakyThrow(() -> {
+            j3270.close();
             return null;
         });
     }
 
     @Override
     public void close() {
-        sneakyThrow(() -> {
-            j3270.disconnect();
-            j3270.close();
-            return null;
-        });
+        this.disconnect();
+        this.stop();
     }
 
     @Override
@@ -90,8 +129,9 @@ public final class J3270From3270 implements TN3270j {
         sneakyThrow(() -> {
             if (key.matches("[fF]?[0-9]+")) {
                 this.send(Integer.valueOf(key.replaceAll("[fF]", "")));
+            } else {
+                j3270.getClass().getMethod(key).invoke(j3270);
             }
-            j3270.getClass().getMethod(key).invoke(j3270);
             return null;
         });
     }
@@ -99,12 +139,23 @@ public final class J3270From3270 implements TN3270j {
     @Override
     public void wait(Number seconds, WaitMode waitMode) {
         sneakyThrow(() -> {
-            long timeout = Float.valueOf(seconds.floatValue() * 1000).longValue();
-            j3270.wait(new Timeout(timeout, TimeUnit.MILLISECONDS), convertMode(waitMode));
+            if (seconds.intValue() == 0) {
+                j3270.wait(convertMode(waitMode));
+            } else {
+                long timeout = Float.valueOf(seconds.floatValue() * 1000).longValue();
+                j3270.wait(new Timeout(timeout, TimeUnit.MILLISECONDS), convertMode(waitMode));
+            }
             return null;
         });
     }
 
+    @Override
+    public void move(int row, int col) {
+        sneakyThrow(() -> {
+            j3270.moveCursor(row - 1, col - 1);
+            return null;
+        });
+    }
 
     private com.j3270.base.WaitMode convertMode(WaitMode waitMode) {
         switch (waitMode) {
