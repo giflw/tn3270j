@@ -16,7 +16,7 @@ package com.j3270.base;
 import static com.j3270.base.Extras.enumValueOfIgnoreCase;
 
 /**
- * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+ * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
  * @author Daniel Yokomizo
  */
 public enum WindowMode {

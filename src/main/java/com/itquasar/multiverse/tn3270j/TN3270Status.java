@@ -13,18 +13,20 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Field;
 
 
 /**
  * @author Guilherme I F L Weizenmann
- * @see http://x3270.bgp.nu/Unix/x3270-script.html#Status-Format
+ * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Status-Format">Status-Format</a>
  */
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Slf4j
 public class TN3270Status implements StatusCode {
 
     private String status;
@@ -73,8 +75,7 @@ public class TN3270Status implements StatusCode {
                 }
                 field.set(status, value);
             } catch (Throwable throwable) {
-                // FIXME use logger
-                throwable.printStackTrace();
+                LOGGER.error("Error building status object: " + throwable);
             }
         }
         return status;

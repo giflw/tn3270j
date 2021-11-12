@@ -16,7 +16,7 @@ package com.j3270.base;
 import static com.j3270.base.Extras.enumValueOfIgnoreCase;
 
 /**
- * @see http://x3270.bgp.nu/Unix/s3270-man.html#Toggles
+ * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Toggles">Toggles</a>
  * @author Daniel Yokomizo
  */
 public enum WaitMode {

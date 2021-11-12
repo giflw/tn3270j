@@ -37,7 +37,7 @@ import com.j3270.base.WaitMode;
 import com.j3270.base.WindowMode;
 
 /**
- * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+ * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
  * @author Daniel Yokomizo
  */
 public enum ScriptSpecificAction implements Action {

@@ -43,9 +43,9 @@ import static java.util.concurrent.TimeUnit.SECONDS;
  * safety by other means.
  *
  * @author Daniel Yokomizo
- * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
- * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
- * @see https://www.owasp.org/index.php/Command_Injection
+ * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
+ * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
+ * @see <a href="https://www.owasp.org/index.php/Command_Injection">Command_Injection</a>
  */
 public final class J3270 implements Cloneable, Closeable {
     private final Piper piper;
@@ -90,7 +90,7 @@ public final class J3270 implements Cloneable, Closeable {
      * Attn action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void attn() throws J3270Exception {
         perform("Attn", blocking);
@@ -100,7 +100,7 @@ public final class J3270 implements Cloneable, Closeable {
      * BackSpace action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void backSpace() throws J3270Exception {
         perform("BackSpace", nonBlocking);
@@ -110,7 +110,7 @@ public final class J3270 implements Cloneable, Closeable {
      * BackTab action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void backTab() throws J3270Exception {
         perform("BackTab", nonBlocking);
@@ -120,7 +120,7 @@ public final class J3270 implements Cloneable, Closeable {
      * CircumNot action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void circumNot() throws J3270Exception {
         perform("CircumNot", nonBlocking);
@@ -130,7 +130,7 @@ public final class J3270 implements Cloneable, Closeable {
      * Clear action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void clear() throws J3270Exception {
         perform("Clear", nonBlocking);
@@ -142,7 +142,7 @@ public final class J3270 implements Cloneable, Closeable {
      * @param hostport Hostname and (optional) port information
      * @throws IllegalArgumentException if the host information is not in the expected format
      * @throws J3270Exception           if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      * @see Patterns#HOSTPORT
      */
     public void connect(String hostport) throws IllegalArgumentException, J3270Exception {
@@ -158,7 +158,7 @@ public final class J3270 implements Cloneable, Closeable {
      * @param port Port information
      * @throws IllegalArgumentException if the host information is not in the expected format
      * @throws J3270Exception           if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      * @see Patterns#HOST
      */
     public void connect(String host, int port) throws IllegalArgumentException, J3270Exception {
@@ -172,7 +172,7 @@ public final class J3270 implements Cloneable, Closeable {
      * CursorSelect action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void cursorSelect() throws J3270Exception {
         perform("CursorSelect", blocking);
@@ -182,7 +182,7 @@ public final class J3270 implements Cloneable, Closeable {
      * Delete action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void delete() throws J3270Exception {
         perform("Delete", nonBlocking);
@@ -192,7 +192,7 @@ public final class J3270 implements Cloneable, Closeable {
      * DeleteField action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void deleteField() throws J3270Exception {
         perform("DeleteField", nonBlocking);
@@ -202,7 +202,7 @@ public final class J3270 implements Cloneable, Closeable {
      * DeleteWord action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void deleteWord() throws J3270Exception {
         perform("DeleteWord", nonBlocking);
@@ -212,7 +212,7 @@ public final class J3270 implements Cloneable, Closeable {
      * Disconnect action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void disconnect() throws J3270Exception {
         perform("Disconnect", blocking);
@@ -222,7 +222,7 @@ public final class J3270 implements Cloneable, Closeable {
      * Down action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void down() throws J3270Exception {
         perform("Down", nonBlocking);
@@ -232,7 +232,7 @@ public final class J3270 implements Cloneable, Closeable {
      * Dup action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void dup() throws J3270Exception {
         perform("Dup", nonBlocking);
@@ -242,7 +242,7 @@ public final class J3270 implements Cloneable, Closeable {
      * Enter action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void enter() throws J3270Exception {
         perform("Enter", blocking);
@@ -252,7 +252,7 @@ public final class J3270 implements Cloneable, Closeable {
      * Erase action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void erase() throws J3270Exception {
         perform("Erase", nonBlocking);
@@ -262,7 +262,7 @@ public final class J3270 implements Cloneable, Closeable {
      * EraseEOF action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void eraseEOF() throws J3270Exception {
         perform("EraseEOF", nonBlocking);
@@ -272,7 +272,7 @@ public final class J3270 implements Cloneable, Closeable {
      * EraseInput action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void eraseInput() throws J3270Exception {
         perform("EraseInput", nonBlocking);
@@ -285,7 +285,7 @@ public final class J3270 implements Cloneable, Closeable {
      * @return the command's output
      * @throws IllegalStateException if the {@link Safety} mode is not set to {@link Safety#UNSAFE}
      * @throws J3270Exception        if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public String execute(String command) throws IllegalStateException, J3270Exception {
         checkNotNull(command, "command");
@@ -297,7 +297,7 @@ public final class J3270 implements Cloneable, Closeable {
      * FieldEnd action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void fieldEnd() throws J3270Exception {
         perform("FieldEnd", nonBlocking);
@@ -307,7 +307,7 @@ public final class J3270 implements Cloneable, Closeable {
      * FieldMark action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void fieldMark() throws J3270Exception {
         perform("FieldMark", nonBlocking);
@@ -319,7 +319,7 @@ public final class J3270 implements Cloneable, Closeable {
      * @param hexDigits hex digits
      * @throws IllegalArgumentException if the hexDigits contains any invalid characters
      * @throws J3270Exception           if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      * @see Patterns#HEXDIGITS
      */
     public void hexString(String hexDigits) throws IllegalArgumentException, J3270Exception {
@@ -332,7 +332,7 @@ public final class J3270 implements Cloneable, Closeable {
      * Home action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void home() throws J3270Exception {
         perform("Home", nonBlocking);
@@ -342,7 +342,7 @@ public final class J3270 implements Cloneable, Closeable {
      * Insert action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void insert() throws J3270Exception {
         perform("Insert", nonBlocking);
@@ -352,7 +352,7 @@ public final class J3270 implements Cloneable, Closeable {
      * Interrupt action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void interrupt() throws J3270Exception {
         perform("Interrupt", blocking);
@@ -364,7 +364,7 @@ public final class J3270 implements Cloneable, Closeable {
      * @param key a <i>keysym</i> or a <i>keycode</i>
      * @throws IllegalArgumentException if the key contains any invalid characters
      * @throws J3270Exception           if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      * @see Patterns#KEY
      */
     public void key(String key) throws IllegalArgumentException, J3270Exception {
@@ -379,7 +379,7 @@ public final class J3270 implements Cloneable, Closeable {
      * @param key a <i>keycode</i>
      * @throws IllegalArgumentException if the key is not in [0..999]
      * @throws J3270Exception           if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      * @see Patterns#KEY
      */
     public void key(int key) throws IllegalArgumentException, J3270Exception {
@@ -391,7 +391,7 @@ public final class J3270 implements Cloneable, Closeable {
      * Left action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void left() throws J3270Exception {
         perform("Left", nonBlocking);
@@ -401,7 +401,7 @@ public final class J3270 implements Cloneable, Closeable {
      * Left2 action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void left2() throws J3270Exception {
         perform("Left2", nonBlocking);
@@ -411,7 +411,7 @@ public final class J3270 implements Cloneable, Closeable {
      * MonoCase action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void monoCase() throws J3270Exception {
         perform("MonoCase", nonBlocking);
@@ -424,7 +424,7 @@ public final class J3270 implements Cloneable, Closeable {
      * @param col
      * @throws IllegalArgumentException if either row or col is negative
      * @throws J3270Exception           if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void moveCursor(int row, int col) throws IllegalArgumentException, J3270Exception {
         checkArgument(row >= 0, "Invalid row: %d", row);
@@ -436,7 +436,7 @@ public final class J3270 implements Cloneable, Closeable {
      * NewLine action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void newLine() throws J3270Exception {
         perform("NewLine", nonBlocking);
@@ -446,7 +446,7 @@ public final class J3270 implements Cloneable, Closeable {
      * NextWord action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void nextWord() throws J3270Exception {
         perform("NextWord", nonBlocking);
@@ -458,7 +458,7 @@ public final class J3270 implements Cloneable, Closeable {
      * @param n
      * @throws IllegalArgumentException if n is not in [1..3]
      * @throws J3270Exception           if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void pa(int n) throws IllegalArgumentException, J3270Exception {
         checkArgument((n >= 1) && (n <= 3), "Invalid n (must be in [1..3]): %d", n);
@@ -471,7 +471,7 @@ public final class J3270 implements Cloneable, Closeable {
      * @param n
      * @throws IllegalArgumentException if n is not in [1..24]
      * @throws J3270Exception           if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void pf(int n) throws IllegalArgumentException, J3270Exception {
         checkArgument((n >= 1) && (n <= 24), "Invalid n (must be in [1..24]): %d", n);
@@ -482,7 +482,7 @@ public final class J3270 implements Cloneable, Closeable {
      * PreviousWord action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void previousWord() throws J3270Exception {
         perform("PreviousWord", nonBlocking);
@@ -507,7 +507,7 @@ public final class J3270 implements Cloneable, Closeable {
      * Quit action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void quit() throws J3270Exception {
         perform("Quit", nonBlocking);
@@ -517,7 +517,7 @@ public final class J3270 implements Cloneable, Closeable {
      * Redraw action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void redraw() throws J3270Exception {
         perform("Redraw", nonBlocking);
@@ -527,7 +527,7 @@ public final class J3270 implements Cloneable, Closeable {
      * Reset action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void reset() throws J3270Exception {
         perform("Reset", nonBlocking);
@@ -537,7 +537,7 @@ public final class J3270 implements Cloneable, Closeable {
      * Right action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void right() throws J3270Exception {
         perform("Right", nonBlocking);
@@ -547,7 +547,7 @@ public final class J3270 implements Cloneable, Closeable {
      * Right2 action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void right2() throws J3270Exception {
         perform("Right2", nonBlocking);
@@ -561,7 +561,7 @@ public final class J3270 implements Cloneable, Closeable {
      * @return the command's output
      * @throws IllegalStateException if the {@link Safety} mode is not set to {@link Safety#UNSAFE}
      * @throws J3270Exception        if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public String script(String command, String... arguments) throws IllegalStateException, J3270Exception {
         checkNotNull(command, "command");
@@ -584,7 +584,7 @@ public final class J3270 implements Cloneable, Closeable {
      * @param strings
      * @throws IllegalArgumentException the strings is empty or any of them contain invalid characters
      * @throws J3270Exception           if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      * @see Patterns#STRING
      */
     public void string(String... strings) throws IllegalArgumentException, J3270Exception {
@@ -609,7 +609,7 @@ public final class J3270 implements Cloneable, Closeable {
      * SysReq action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void sysReq() throws J3270Exception {
         perform("SysReq", blocking);
@@ -619,7 +619,7 @@ public final class J3270 implements Cloneable, Closeable {
      * Tab action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void tab() throws J3270Exception {
         perform("Tab", nonBlocking);
@@ -630,7 +630,7 @@ public final class J3270 implements Cloneable, Closeable {
      *
      * @param option
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void toggle(ToggleOption option) throws J3270Exception {
         checkNotNull(option, "option");
@@ -643,7 +643,7 @@ public final class J3270 implements Cloneable, Closeable {
      * @param option
      * @param mode
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void toggle(ToggleOption option, ToggleMode mode) throws J3270Exception {
         checkNotNull(option, "option");
@@ -655,7 +655,7 @@ public final class J3270 implements Cloneable, Closeable {
      * ToggleInsert action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void toggleInsert() throws J3270Exception {
         perform("ToggleInsert", nonBlocking);
@@ -665,7 +665,7 @@ public final class J3270 implements Cloneable, Closeable {
      * ToggleReverse action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void toggleReverse() throws J3270Exception {
         perform("ToggleReverse", nonBlocking);
@@ -682,7 +682,7 @@ public final class J3270 implements Cloneable, Closeable {
      *                                  if hostFile is not valid
      * @see FileTransfer
      * @see Patterns#HOSTFILE
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#File-Transfer
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#File-Transfer">File-Transfer</a>
      */
     public FileTransfer transfer(File localFile, String hostFile) throws IllegalArgumentException {
         checkNotNull(localFile, "localFile");
@@ -712,7 +712,7 @@ public final class J3270 implements Cloneable, Closeable {
      * Up action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public void up() throws J3270Exception {
         perform("Up", nonBlocking);
@@ -723,7 +723,7 @@ public final class J3270 implements Cloneable, Closeable {
      *
      * @return the data output
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
      */
     public List<String> ansiText() throws J3270Exception {
         perform("AnsiText", nonBlocking);
@@ -735,7 +735,7 @@ public final class J3270 implements Cloneable, Closeable {
      *
      * @return the data output
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
      */
     public List<String> ascii() throws J3270Exception {
         perform("Ascii", nonBlocking);
@@ -749,7 +749,7 @@ public final class J3270 implements Cloneable, Closeable {
      * @return the data output
      * @throws IllegalArgumentException if the length is negative
      * @throws J3270Exception           if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
      */
     public List<String> ascii(int length) throws J3270Exception {
         checkArgument(length >= 0, "Invalid length: %d", length);
@@ -768,7 +768,7 @@ public final class J3270 implements Cloneable, Closeable {
      *                                  if col is negative
      *                                  if the length is negative
      * @throws J3270Exception           if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
      */
     public List<String> ascii(int row, int col, int length) throws J3270Exception {
         checkArgument(row >= 0, "Invalid row: %d", row);
@@ -791,7 +791,7 @@ public final class J3270 implements Cloneable, Closeable {
      *                                  if rows is negative
      *                                  if cols is negative
      * @throws J3270Exception           if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
      */
     public List<String> ascii(int row, int col, int rows, int cols) throws J3270Exception {
         checkArgument(row >= 0, "Invalid row: %d", row);
@@ -807,7 +807,7 @@ public final class J3270 implements Cloneable, Closeable {
      *
      * @return the data output
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
      */
     public String asciiField() throws J3270Exception {
         perform("AsciiField", nonBlocking);
@@ -820,7 +820,7 @@ public final class J3270 implements Cloneable, Closeable {
      *
      * @param status
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
      */
     public void closeScript(int status) throws J3270Exception {
         perform("CloseScript(" + status + ")", nonBlocking);
@@ -830,7 +830,7 @@ public final class J3270 implements Cloneable, Closeable {
      * ContinueScript action.
      *
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
      * @see #pauseScript()
      * @see #pauseScript(Timeout)
      */
@@ -844,7 +844,7 @@ public final class J3270 implements Cloneable, Closeable {
      * @param param
      * @throws IllegalArgumentException the param contains invalid characters
      * @throws J3270Exception           if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
      * @see Patterns#STRING
      * @see #pauseScript()
      * @see #pauseScript(Timeout)
@@ -860,7 +860,7 @@ public final class J3270 implements Cloneable, Closeable {
      *
      * @return the data output
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
      */
     public List<String> ebcdic() throws J3270Exception {
         perform("Ebcdic", nonBlocking);
@@ -874,7 +874,7 @@ public final class J3270 implements Cloneable, Closeable {
      * @return the data output
      * @throws IllegalArgumentException if the length is negative
      * @throws J3270Exception           if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
      */
     public List<String> ebcdic(int length) throws J3270Exception {
         checkArgument(length >= 0, "Invalid length: %d", length);
@@ -893,7 +893,7 @@ public final class J3270 implements Cloneable, Closeable {
      *                                  if col is negative
      *                                  if the length is negative
      * @throws J3270Exception           if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
      */
     public List<String> ebcdic(int row, int col, int length) throws J3270Exception {
         checkArgument(row >= 0, "Invalid row: %d", row);
@@ -916,7 +916,7 @@ public final class J3270 implements Cloneable, Closeable {
      *                                  if rows is negative
      *                                  if cols is negative
      * @throws J3270Exception           if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
      */
     public List<String> ebcdic(int row, int col, int rows, int cols) throws J3270Exception {
         checkArgument(row >= 0, "Invalid row: %d", row);
@@ -932,7 +932,7 @@ public final class J3270 implements Cloneable, Closeable {
      *
      * @return the data output
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
      */
     public String ebcdicField() throws J3270Exception {
         perform("EbcdicField", nonBlocking);
@@ -944,10 +944,9 @@ public final class J3270 implements Cloneable, Closeable {
      * Info action.
      *
      * @param message
-     * @return the data output
      * @throws IllegalArgumentException the message contains invalid characters
      * @throws J3270Exception           if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
      * @see Patterns#STRING
      */
     public void info(String message) throws J3270Exception {
@@ -960,10 +959,9 @@ public final class J3270 implements Cloneable, Closeable {
      * Info action.
      *
      * @param text
-     * @return the data output
      * @throws IllegalArgumentException the text contains invalid characters
      * @throws J3270Exception           if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
      * @see Patterns#STRING
      */
     public void expect(String text) throws J3270Exception {
@@ -977,11 +975,10 @@ public final class J3270 implements Cloneable, Closeable {
      *
      * @param text
      * @param timeout
-     * @return the data output
      * @throws IllegalArgumentException if the text contains invalid characters
      *                                  if the timeout is negative
      * @throws J3270Exception           if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
      * @see Patterns#STRING
      */
     public void expect(String text, int timeout) throws J3270Exception {
@@ -996,7 +993,7 @@ public final class J3270 implements Cloneable, Closeable {
      *
      * @return the data output
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
      * @see #continueScript()
      * @see #continueScript(String)
      */
@@ -1010,7 +1007,7 @@ public final class J3270 implements Cloneable, Closeable {
      * @param timeout duration to wait for the script to continue
      * @return the data output
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
      * @see #continueScript()
      * @see #continueScript(String)
      */
@@ -1026,7 +1023,7 @@ public final class J3270 implements Cloneable, Closeable {
      *
      * @return the data output
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
      */
     public List<String> query() throws J3270Exception {
         perform("Query", nonBlocking);
@@ -1039,7 +1036,7 @@ public final class J3270 implements Cloneable, Closeable {
      * @param keyword
      * @return the data output
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
      */
     public String query(QueryKeyword keyword) throws J3270Exception {
         checkNotNull(keyword, "keyword");
@@ -1054,7 +1051,7 @@ public final class J3270 implements Cloneable, Closeable {
      * @param mode
      * @return the data output
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
      */
     public List<String> readBuffer(ReadBufferMode mode) throws J3270Exception {
         checkNotNull(mode, "mode");
@@ -1067,7 +1064,7 @@ public final class J3270 implements Cloneable, Closeable {
      * if the action fails for any reason
      *
      * @return a {@link Snap} to configure the action
-     * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
      */
     public Snap snap() {
         final Snap s = new Snap(this);
@@ -1096,13 +1093,13 @@ public final class J3270 implements Cloneable, Closeable {
     /**
      * Source action.
      *
-     * @param keyword
+     * @param file
      * @return the data output
      * @throws IllegalArgumentException if localFile is not an existing, readable, file.
      *                                  if hostFile is not valid
      * @throws IllegalStateException    if the {@link Safety} mode is not set to {@link Safety#UNSAFE}
      * @throws J3270Exception           if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
      */
     public List<String> source(File file) throws J3270Exception {
         checkNotNull(file, "file");
@@ -1121,7 +1118,7 @@ public final class J3270 implements Cloneable, Closeable {
      *
      * @param text
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
      */
     public void title(String text) throws J3270Exception {
         final String s = escape(checkNotNull(text, "text"));
@@ -1133,7 +1130,7 @@ public final class J3270 implements Cloneable, Closeable {
      *
      * @param mode
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
      */
     public void wait(WaitMode mode) throws J3270Exception {
         checkNotNull(mode, "mode");
@@ -1146,7 +1143,7 @@ public final class J3270 implements Cloneable, Closeable {
      * @param timeout
      * @param mode
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
      */
     public void wait(Timeout timeout, WaitMode mode) throws J3270Exception {
         checkNotNull(timeout, "timeout");
@@ -1164,7 +1161,7 @@ public final class J3270 implements Cloneable, Closeable {
      *
      * @param mode
      * @throws J3270Exception if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
      */
     public void windowState(WindowMode mode) throws J3270Exception {
         checkNotNull(mode, "mode");
@@ -1178,7 +1175,7 @@ public final class J3270 implements Cloneable, Closeable {
      * @return the action's output
      * @throws IllegalStateException if the {@link Safety} mode is not set to {@link Safety#UNSAFE}
      * @throws J3270Exception        if the action fails for any reason
-     * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
      */
     public String raw(String action) throws IllegalStateException, J3270Exception {
         checkNotNull(action, "action");

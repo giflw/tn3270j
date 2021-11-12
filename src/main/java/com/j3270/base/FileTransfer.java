@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @see http://x3270.bgp.nu/Unix/s3270-man.html#File-Transfer
+ * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#File-Transfer">File-Transfer</a>
  * @author Daniel Yokomizo
  */
 public final class FileTransfer implements Closeable {
@@ -227,7 +227,7 @@ public final class FileTransfer implements Closeable {
 	 *           if required options are undefined
 	 * @throws J3270Exception
 	 *           if the action fails for any reason
-	 * @see http://x3270.bgp.nu/Unix/s3270-man.html#File-Transfer
+	 * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#File-Transfer">File-Transfer</a>
 	 */
 	public void end() throws IllegalStateException, J3270Exception {
 		checkState(!ended, "File Transfer already ended: %s", this);

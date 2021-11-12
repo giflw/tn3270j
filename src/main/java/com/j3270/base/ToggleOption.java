@@ -14,7 +14,7 @@
 package com.j3270.base;
 
 /**
- * @see http://x3270.bgp.nu/Unix/s3270-man.html#Toggles
+ * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Toggles">Toggles</a>
  * @author Daniel Yokomizo
  */
 public enum ToggleOption {

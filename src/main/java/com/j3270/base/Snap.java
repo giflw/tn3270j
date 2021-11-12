@@ -37,7 +37,7 @@ public final class Snap {
 	 * @return the data output
 	 * @throws J3270Exception
 	 *           if the action fails for any reason
-	 * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+	 * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
 	 */
 	public List<String> ascii() throws J3270Exception {
 		j3270.snap("Snap(Ascii)");
@@ -53,7 +53,7 @@ public final class Snap {
 	 *           if the length is negative
 	 * @throws J3270Exception
 	 *           if the action fails for any reason
-	 * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+	 * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
 	 */
 	public List<String> ascii(int length) throws J3270Exception {
 		checkArgument(length >= 0, "Invalid length: %d", length);
@@ -74,7 +74,7 @@ public final class Snap {
 	 *           if the length is negative
 	 * @throws J3270Exception
 	 *           if the action fails for any reason
-	 * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+	 * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
 	 */
 	public List<String> ascii(int row, int col, int length) throws J3270Exception {
 		checkArgument(row >= 0, "Invalid row: %d", row);
@@ -99,7 +99,7 @@ public final class Snap {
 	 *           if cols is negative
 	 * @throws J3270Exception
 	 *           if the action fails for any reason
-	 * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+	 * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
 	 */
 	public List<String> ascii(int row, int col, int rows, int cols) throws J3270Exception {
 		checkArgument(row >= 0, "Invalid row: %d", row);
@@ -116,7 +116,7 @@ public final class Snap {
 	 * @return the number of columns
 	 * @throws J3270Exception
 	 *           if the action fails for any reason
-	 * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+	 * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
 	 */
 	public int cols() throws J3270Exception {
 		j3270.snap("Snap(Cols)");
@@ -129,7 +129,7 @@ public final class Snap {
 	 * @return the data output
 	 * @throws J3270Exception
 	 *           if the action fails for any reason
-	 * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+	 * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
 	 */
 	public List<String> ebcdic() throws J3270Exception {
 		j3270.snap("Snap(Ebcdic)");
@@ -145,7 +145,7 @@ public final class Snap {
 	 *           if the length is negative
 	 * @throws J3270Exception
 	 *           if the action fails for any reason
-	 * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+	 * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
 	 */
 	public List<String> ebcdic(int length) throws J3270Exception {
 		checkArgument(length >= 0, "Invalid length: %d", length);
@@ -166,7 +166,7 @@ public final class Snap {
 	 *           if the length is negative
 	 * @throws J3270Exception
 	 *           if the action fails for any reason
-	 * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+	 * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
 	 */
 	public List<String> ebcdic(int row, int col, int length) throws J3270Exception {
 		checkArgument(row >= 0, "Invalid row: %d", row);
@@ -191,7 +191,7 @@ public final class Snap {
 	 *           if cols is negative
 	 * @throws J3270Exception
 	 *           if the action fails for any reason
-	 * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+	 * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
 	 */
 	public List<String> ebcdic(int row, int col, int rows, int cols) throws J3270Exception {
 		checkArgument(row >= 0, "Invalid row: %d", row);
@@ -209,7 +209,7 @@ public final class Snap {
 	 * @return the data output
 	 * @throws J3270Exception
 	 *           if the action fails for any reason
-	 * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+	 * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
 	 */
 	public List<String> readBuffer(ReadBufferMode mode) throws J3270Exception {
 		checkNotNull(mode, "mode");
@@ -223,7 +223,7 @@ public final class Snap {
 	 * @return the number of rows
 	 * @throws J3270Exception
 	 *           if the action fails for any reason
-	 * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+	 * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
 	 */
 	public int rows() throws J3270Exception {
 		j3270.snap("Snap(Rows)");
@@ -232,11 +232,10 @@ public final class Snap {
 
 	/**
 	 * Snap(Save) action.
-	 * 
-	 * @return the number of rows
+	 *
 	 * @throws J3270Exception
 	 *           if the action fails for any reason
-	 * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+	 * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
 	 */
 	public void save() throws J3270Exception {
 		j3270.snap("Snap(Save)");
@@ -248,7 +247,7 @@ public final class Snap {
 	 * @return the status
 	 * @throws J3270Exception
 	 *           if the action fails for any reason
-	 * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+	 * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
 	 */
 	public Status status() throws J3270Exception {
 		j3270.snap("Snap(Status)");
@@ -263,7 +262,7 @@ public final class Snap {
 	 * @param mode
 	 * @throws J3270Exception
 	 *           if the action fails for any reason
-	 * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+	 * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
 	 */
 	public void wait(WaitMode mode) throws J3270Exception {
 		checkNotNull(mode, "mode");
@@ -278,7 +277,7 @@ public final class Snap {
 	 * @param mode
 	 * @throws J3270Exception
 	 *           if the action fails for any reason
-	 * @see http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions
+	 * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Script-Specific-Actions">Script-Specific-Actions</a>
 	 */
 	public void wait(Timeout timeout, WaitMode mode) throws J3270Exception {
 		checkNotNull(timeout, "timeout");

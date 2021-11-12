@@ -7,7 +7,7 @@ package com.itquasar.multiverse.tn3270j.status;
  * The first line is the current status of the emulator.
  * If the command is successful, the second line is the string "ok"; otherwise it is the string "error".
  *
- * @see http://x3270.bgp.nu/Unix/x3270-script.html#Description
+ * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Description">Description</a>
  */
 public enum Status implements StatusCode {
     Ok("ok"),

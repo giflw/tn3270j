@@ -26,7 +26,7 @@ public final class Patterns {
 		String ipv4_address = "[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}";
 		String host = "(?:" + hostname + ")|(?:" + ipv4_address + ")";
 		String port = "[0-9]{1,5}";
-		String hostport = "(" + host + ")" + "(?:[:](" + port + "))?";
+		String hostport = "([A-Z]:)*(" + host + ")" + "(?:[:](" + port + "))?";
 	}
 
 	public static final Pattern HOST = Pattern.compile("^" + Rfc2396.host + "$");

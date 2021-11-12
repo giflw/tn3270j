@@ -2,7 +2,7 @@ package com.itquasar.multiverse.tn3270j;
 
 /**
  * @author Guilherme I F L Weizenmann
- * @see https://x3270.miraheze.org/wiki/Wait()_action
+ * @see <a href="https://x3270.miraheze.org/wiki/Wait()_action">Wait()_action</a>
  */
 public enum WaitMode {
     /**
@@ -32,8 +32,8 @@ public enum WaitMode {
      * This can be used by a script to minimize the need to poll the screen for changes.
      * For example, if the host periodically updates the screen with new information,
      * the script can just call Wait(output), then use a screen-reading action to get the new data.
-     * <p>
      * </p>
+     * <p>
      * Note that if the host disconnects while Wait(output) is pending, Wait(output) will return,
      * but it will not fail. This gives a script a chance to call a screen-reading action to read
      * whatever might have changed on the screen while the host was disconnecting.

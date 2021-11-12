@@ -18,7 +18,7 @@ import static com.j3270.base.Extras.enumValueOfIgnoreCase;
 import com.j3270.base.FileTransfer;
 
 /**
- * @see http://x3270.bgp.nu/Unix/s3270-man.html#File-Transfer
+ * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#File-Transfer">File-Transfer</a>
  * @author Daniel Yokomizo
  */
 enum FileTransferOption {

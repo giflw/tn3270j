@@ -13,410 +13,428 @@
  */
 package com.j3270.base;
 
-import static com.j3270.base.Extras.checkArgument;
-import static com.j3270.base.Extras.checkNotNull;
-import static com.j3270.base.Patterns.HOST;
-import static java.util.concurrent.TimeUnit.MILLISECONDS;
-import static java.util.concurrent.TimeUnit.NANOSECONDS;
-import static java.util.concurrent.TimeUnit.SECONDS;
-
 import java.io.Serializable;
 import java.util.StringTokenizer;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.j3270.base.Extras.checkArgument;
+import static com.j3270.base.Extras.checkNotNull;
+import static com.j3270.base.Patterns.HOST;
+import static java.util.concurrent.TimeUnit.*;
+
 /**
- * @see http://x3270.bgp.nu/Unix/x3270-script.html#Status-Format
  * @author Daniel Yokomizo
+ * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Status-Format">Status-Format</a>
  */
 public final class Status implements Serializable {
-	private static final long serialVersionUID = -968581656104103545L;
-	private final String status;
-	private final KeyboardState keyboardState;
-	private final ScreenFormatting screenFormatting;
-	private final FieldProtection fieldProtection;
-	private final ConnectionState connectionState;
-	private final EmulatorMode emulatorMode;
-	private final int modelNumber;
-	private final int numberOfRows;
-	private final int numberOfColumns;
-	private final int cursorRow;
-	private final int cursorColumn;
-	private final int windowID;
-	private final CommandExecutionTime commandExecutionTime;
-	private final Code code;
+    private static final long serialVersionUID = -968581656104103545L;
+    private final String status;
+    private final KeyboardState keyboardState;
+    private final ScreenFormatting screenFormatting;
+    private final FieldProtection fieldProtection;
+    private final ConnectionState connectionState;
+    private final EmulatorMode emulatorMode;
+    private final int modelNumber;
+    private final int numberOfRows;
+    private final int numberOfColumns;
+    private final int cursorRow;
+    private final int cursorColumn;
+    private final int windowID;
+    private final CommandExecutionTime commandExecutionTime;
+    private final Code code;
 
-	public Status(String status) {
-		checkNotNull(status, "status");
-		checkArgument(count(status, " ") == 11, "Invalid status: %s", status);
-		try {
-			final StringTokenizer st = new StringTokenizer(status);
-			this.status = status;
-			keyboardState = parse(st, "U", KeyboardState.Unlocked, "L", KeyboardState.Locked, "E", KeyboardState.Error);
-			screenFormatting = parse(st, "F", ScreenFormatting.Formatted, "U", ScreenFormatting.Unformatted);
-			fieldProtection = parse(st, "P", FieldProtection.Protected, "U", FieldProtection.Unprotected);
-			connectionState = parseConnectionState(st);
-			emulatorMode = parse(st, "I", EmulatorMode._3270, "L", EmulatorMode.Line, "C", EmulatorMode.Character, "P", EmulatorMode.Unnegotiated, "N",
-					EmulatorMode.NotConnected);
-			modelNumber = parseInt(st, "ModelNumber", 2, 5);
-			numberOfRows = parseInt(st, "NumberOfRows", 1, Integer.MAX_VALUE);
-			numberOfColumns = parseInt(st, "NumberOfColumns", 1, Integer.MAX_VALUE);
-			cursorRow = parseInt(st, "CursorRow", 0, numberOfRows - 1);
-			cursorColumn = parseInt(st, "CursorColumn", 0, numberOfColumns - 1);
-			windowID = parseInt(st, "WindowID", 16, 0, Integer.MAX_VALUE);
-			commandExecutionTime = parseCommandExecutionTime(st);
-			code = parse(st, "ok", Code.Ok, "error", Code.Error);
-			checkArgument(!st.hasMoreTokens(), "Invalid status: %s", status);
-		} catch (Exception exc) {
-			throw new IllegalArgumentException("Invalid status: " + status, exc);
-		}
-	}
+    public Status(String status) {
+        checkNotNull(status, "status");
 
-	public KeyboardState keyboardState() {
-		return keyboardState;
-	}
+        int idx = 0;
 
-	public ScreenFormatting screenFormatting() {
-		return screenFormatting;
-	}
+        Matcher matcher = Pattern.compile("([LUE] ).*").matcher(status);
+        if (matcher.find()) {
+            idx = matcher.start();
+        }
+        status = status.substring(idx);
 
-	public FieldProtection fieldProtection() {
-		return fieldProtection;
-	}
+        checkArgument(count(status, " ") == 11, "Invalid status: %s", status);
+        try {
+            final StringTokenizer st = new StringTokenizer(status);
+            this.status = status;
+            keyboardState = parse(st, "U", KeyboardState.Unlocked, "L", KeyboardState.Locked, "E", KeyboardState.Error);
+            screenFormatting = parse(st, "F", ScreenFormatting.Formatted, "U", ScreenFormatting.Unformatted);
+            fieldProtection = parse(st, "P", FieldProtection.Protected, "U", FieldProtection.Unprotected);
+            connectionState = parseConnectionState(st);
+            emulatorMode = parse(st, "I", EmulatorMode._3270, "L", EmulatorMode.Line, "C", EmulatorMode.Character, "P", EmulatorMode.Unnegotiated, "N",
+                    EmulatorMode.NotConnected);
+            modelNumber = parseInt(st, "ModelNumber", 2, 5);
+            numberOfRows = parseInt(st, "NumberOfRows", 1, Integer.MAX_VALUE);
+            numberOfColumns = parseInt(st, "NumberOfColumns", 1, Integer.MAX_VALUE);
+            cursorRow = parseInt(st, "CursorRow", 0, numberOfRows - 1);
+            cursorColumn = parseInt(st, "CursorColumn", 0, numberOfColumns - 1);
+            windowID = parseInt(st, "WindowID", 16, 0, Integer.MAX_VALUE);
+            commandExecutionTime = parseCommandExecutionTime(st);
+            code = parse(st, "ok", Code.Ok, "error", Code.Error);
+            checkArgument(!st.hasMoreTokens(), "Invalid status: %s", status);
+        } catch (Exception exc) {
+            throw new IllegalArgumentException("Invalid status: " + status, exc);
+        }
+    }
 
-	public ConnectionState connectionState() {
-		return connectionState;
-	}
+    public KeyboardState keyboardState() {
+        return keyboardState;
+    }
 
-	public EmulatorMode emulatorMode() {
-		return emulatorMode;
-	}
+    public ScreenFormatting screenFormatting() {
+        return screenFormatting;
+    }
 
-	public int modelNumber() {
-		return modelNumber;
-	}
+    public FieldProtection fieldProtection() {
+        return fieldProtection;
+    }
 
-	public int numberOfRows() {
-		return numberOfRows;
-	}
+    public ConnectionState connectionState() {
+        return connectionState;
+    }
 
-	public int numberOfColumns() {
-		return numberOfColumns;
-	}
+    public EmulatorMode emulatorMode() {
+        return emulatorMode;
+    }
 
-	public int cursorRow() {
-		return cursorRow;
-	}
+    public int modelNumber() {
+        return modelNumber;
+    }
 
-	public int cursorColumn() {
-		return cursorColumn;
-	}
+    public int numberOfRows() {
+        return numberOfRows;
+    }
 
-	public int windowID() {
-		return windowID;
-	}
+    public int numberOfColumns() {
+        return numberOfColumns;
+    }
 
-	public CommandExecutionTime commandExecutionTime() {
-		return commandExecutionTime;
-	}
+    public int cursorRow() {
+        return cursorRow;
+    }
 
-	public Code code() {
-		return code;
-	}
+    public int cursorColumn() {
+        return cursorColumn;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		return (this == obj) || ((obj instanceof Status) && equal(this, (Status) obj));
-	}
+    public int windowID() {
+        return windowID;
+    }
 
-	private static boolean equal(Status o1, Status o2) {
-		return o1.status.equals(o2.status);
-	}
+    public CommandExecutionTime commandExecutionTime() {
+        return commandExecutionTime;
+    }
 
-	@Override
-	public int hashCode() {
-		return 0x3bb46be7 ^ status.hashCode();
-	}
+    public Code code() {
+        return code;
+    }
 
-	@Override
-	public String toString() {
-		return status;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        return (this == obj) || ((obj instanceof Status) && equal(this, (Status) obj));
+    }
 
-	public interface StatusField {
-		String code();
-	}
+    private static boolean equal(Status o1, Status o2) {
+        return o1.status.equals(o2.status);
+    }
 
-	public enum KeyboardState implements StatusField {
-		Unlocked, Locked, Error;
-		public String code() {
-			return name().substring(0, 1);
-		}
+    @Override
+    public int hashCode() {
+        return 0x3bb46be7 ^ status.hashCode();
+    }
 
-		private Object readResolve() {
-			return KeyboardState.valueOf(name());
-		}
-	}
+    @Override
+    public String toString() {
+        return status;
+    }
 
-	public enum ScreenFormatting implements StatusField {
-		Formatted, Unformatted;
-		public String code() {
-			return name().substring(0, 1);
-		}
+    public interface StatusField {
+        String code();
+    }
 
-		private Object readResolve() {
-			return ScreenFormatting.valueOf(name());
-		}
-	}
+    public enum KeyboardState implements StatusField {
+        Unlocked, Locked, Error;
 
-	public enum FieldProtection implements StatusField {
-		Protected, Unprotected;
-		public String code() {
-			return name().substring(0, 1);
-		}
+        public String code() {
+            return name().substring(0, 1);
+        }
 
-		private Object readResolve() {
-			return FieldProtection.valueOf(name());
-		}
-	}
+        private Object readResolve() {
+            return KeyboardState.valueOf(name());
+        }
+    }
 
-	public static final class ConnectionState implements StatusField, Serializable {
-		private static final long serialVersionUID = 1977203552866521721L;
-		private static final ConnectionState UNCONNECTED = new ConnectionState(null);
-		private final String hostname;
+    public enum ScreenFormatting implements StatusField {
+        Formatted, Unformatted;
 
-		private ConnectionState(String hostname) {
-			this.hostname = hostname;
-		}
+        public String code() {
+            return name().substring(0, 1);
+        }
 
-		public String hostname() {
-			return hostname;
-		}
+        private Object readResolve() {
+            return ScreenFormatting.valueOf(name());
+        }
+    }
 
-		@Override
-		public String code() {
-			return (hostname == null) ? "N" : "C(" + hostname + ")";
-		}
+    public enum FieldProtection implements StatusField {
+        Protected, Unprotected;
 
-		@Override
-		public boolean equals(Object obj) {
-			return (this == obj) || ((obj instanceof ConnectionState) && equal(this, (ConnectionState) obj));
-		}
+        public String code() {
+            return name().substring(0, 1);
+        }
 
-		private static boolean equal(ConnectionState o1, ConnectionState o2) {
-			return (o1.hostname == null) ? (o2.hostname == null) : o1.hostname.equals(o2.hostname);
-		}
+        private Object readResolve() {
+            return FieldProtection.valueOf(name());
+        }
+    }
 
-		@Override
-		public int hashCode() {
-			return 0x3c1af93e ^ ((hostname == null) ? 0 : hostname.hashCode());
-		}
+    public static final class ConnectionState implements StatusField, Serializable {
+        private static final long serialVersionUID = 1977203552866521721L;
+        private static final ConnectionState UNCONNECTED = new ConnectionState(null);
+        private final String hostname;
 
-		@Override
-		public String toString() {
-			return code();
-		}
+        private ConnectionState(String hostname) {
+            this.hostname = hostname;
+        }
 
-		public static ConnectionState Connected(String hostname) {
-			checkNotNull(hostname, hostname);
-			return new ConnectionState(hostname);
-		}
+        public String hostname() {
+            return hostname;
+        }
 
-		public static ConnectionState Unconnected() {
-			return UNCONNECTED;
-		}
-	}
+        @Override
+        public String code() {
+            return (hostname == null) ? "N" : "C(" + hostname + ")";
+        }
 
-	public enum EmulatorMode implements StatusField {
-		_3270("I"), Line("L"), Character("C"), Unnegotiated("P"), NotConnected("N");
-		private final String code;
+        @Override
+        public boolean equals(Object obj) {
+            return (this == obj) || ((obj instanceof ConnectionState) && equal(this, (ConnectionState) obj));
+        }
 
-		private EmulatorMode(String code) {
-			this.code = code;
-		}
+        private static boolean equal(ConnectionState o1, ConnectionState o2) {
+            return (o1.hostname == null) ? (o2.hostname == null) : o1.hostname.equals(o2.hostname);
+        }
 
-		public String code() {
-			return code;
-		}
+        @Override
+        public int hashCode() {
+            return 0x3c1af93e ^ ((hostname == null) ? 0 : hostname.hashCode());
+        }
 
-		private Object readResolve() {
-			return EmulatorMode.valueOf(name());
-		}
-	}
+        @Override
+        public String toString() {
+            return code();
+        }
 
-	public static final class CommandExecutionTime implements StatusField, Serializable {
-		private static final long serialVersionUID = -8053517657020612370L;
-		private static final String FORMAT = "%d.%03d";
-		private static final Pattern PATTERN = Pattern.compile("^(0|(?:[1-9][0-9]*))(?:\\.([0-9]{1,3}))?$");
+        public static ConnectionState Connected(String hostname) {
+            checkNotNull(hostname, hostname);
+            return new ConnectionState(hostname);
+        }
 
-		private static final CommandExecutionTime NO_HOST_RESPONSE = new CommandExecutionTime(0L, NANOSECONDS);
-		private final long time;
-		private final TimeUnit unit;
+        public static ConnectionState Unconnected() {
+            return UNCONNECTED;
+        }
+    }
 
-		private CommandExecutionTime(long time, TimeUnit unit) {
-			this.time = time;
-			this.unit = unit;
-		}
+    public enum EmulatorMode implements StatusField {
+        _3270("I"), Line("L"), Character("C"), Unnegotiated("P"), NotConnected("N");
+        private final String code;
 
-		public boolean isNoHostResponse() {
-			return (time == 0L) && (unit.ordinal() == NANOSECONDS.ordinal());
-		}
+        private EmulatorMode(String code) {
+            this.code = code;
+        }
 
-		@Override
-		public String code() {
-			if (isNoHostResponse()) { return "-"; }
-			final long s = unit.toSeconds(time);
-			final long ms = unit.toMillis(time) - (s * 1000);
-			return String.format(FORMAT, s, ms);
-		}
+        public String code() {
+            return code;
+        }
 
-		/**
-		 * @return this instance's duration
-		 */
-		public long time() {
-			return time;
-		}
+        private Object readResolve() {
+            return EmulatorMode.valueOf(name());
+        }
+    }
 
-		/**
-		 * @return this instance's {@link TimeUnit} or null
-		 */
-		public TimeUnit unit() {
-			return unit;
-		}
+    public static final class CommandExecutionTime implements StatusField, Serializable {
+        private static final long serialVersionUID = -8053517657020612370L;
+        private static final String FORMAT = "%d.%03d";
+        private static final Pattern PATTERN = Pattern.compile("^(0|(?:[1-9][0-9]*))(?:\\.([0-9]{1,3}))?$");
 
-		/**
-		 * {@inheritDoc}
-		 */
-		@Override
-		public boolean equals(Object obj) {
-			return (this == obj) || ((obj instanceof CommandExecutionTime) && equal(this, (CommandExecutionTime) obj));
-		}
+        private static final CommandExecutionTime NO_HOST_RESPONSE = new CommandExecutionTime(0L, NANOSECONDS);
+        private final long time;
+        private final TimeUnit unit;
 
-		private static boolean equal(CommandExecutionTime o1, CommandExecutionTime o2) {
-			return (o1.time == o2.time) && (o1.unit.ordinal() == o2.unit.ordinal());
-		}
+        private CommandExecutionTime(long time, TimeUnit unit) {
+            this.time = time;
+            this.unit = unit;
+        }
 
-		/**
-		 * {@inheritDoc}
-		 */
-		@Override
-		public int hashCode() {
-			return 0xd1f85491 ^ (31 * Extras.hashCode(time) + unit.name().hashCode());
-		}
+        public boolean isNoHostResponse() {
+            return (time == 0L) && (unit.ordinal() == NANOSECONDS.ordinal());
+        }
 
-		/**
-		 * {@inheritDoc}
-		 */
-		@Override
-		public String toString() {
-			if (isNoHostResponse()) { return "CommandExecutionTime(-)"; }
-			final StringBuilder sb = new StringBuilder(40);
-			sb.append("CommandExecutionTime(");
-			sb.append(time);
-			sb.append(',');
-			sb.append(unit.name());
-			sb.append(')');
-			return sb.toString();
-		}
+        @Override
+        public String code() {
+            if (isNoHostResponse()) {
+                return "-";
+            }
+            final long s = unit.toSeconds(time);
+            final long ms = unit.toMillis(time) - (s * 1000);
+            return String.format(FORMAT, s, ms);
+        }
 
-		public static CommandExecutionTime NoHostResponse() {
-			return NO_HOST_RESPONSE;
-		}
+        /**
+         * @return this instance's duration
+         */
+        public long time() {
+            return time;
+        }
 
-		public static CommandExecutionTime HostResponseTook(long time, TimeUnit unit) {
-			checkArgument(time > 0, "Time must be non-negative: %d", time);
-			checkNotNull(unit, "unit");
-			checkArgument((MILLISECONDS.compareTo(unit) <= 0) && (SECONDS.compareTo(unit) >= 0), "Unit must be either SECONDS or MILLISECONDS: %s", unit);
-			return new CommandExecutionTime(time, unit);
-		}
-	}
+        /**
+         * @return this instance's {@link TimeUnit} or null
+         */
+        public TimeUnit unit() {
+            return unit;
+        }
 
-	public enum Code {
-		Ok, Error;
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public boolean equals(Object obj) {
+            return (this == obj) || ((obj instanceof CommandExecutionTime) && equal(this, (CommandExecutionTime) obj));
+        }
 
-		private Object readResolve() {
-			return Code.valueOf(name());
-		}
+        private static boolean equal(CommandExecutionTime o1, CommandExecutionTime o2) {
+            return (o1.time == o2.time) && (o1.unit.ordinal() == o2.unit.ordinal());
+        }
 
-		@Override
-		public String toString() {
-			return name().toLowerCase();
-		}
-	}
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public int hashCode() {
+            return 0xd1f85491 ^ (31 * Extras.hashCode(time) + unit.name().hashCode());
+        }
 
-	@SuppressWarnings("unchecked")
-	private static <E extends Enum<E>> E parse(StringTokenizer st, String label, E value, Object...choices) {
-		checkArgument(st.hasMoreTokens(), "Insufficient data to parse %s", value.getDeclaringClass().getSimpleName());
-		final String s = st.nextToken();
-		if (s.equalsIgnoreCase(label)) { return value; }
-		for (int i = 0; i < choices.length; i += 2) {
-			if (s.equalsIgnoreCase((String) choices[i])) { return (E) choices[i + 1]; }
-		}
-		throw new IllegalArgumentException("Invalid value for " + value.getDeclaringClass().getSimpleName() + ": '" + s + "'");
-	}
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public String toString() {
+            if (isNoHostResponse()) {
+                return "CommandExecutionTime(-)";
+            }
+            final StringBuilder sb = new StringBuilder(40);
+            sb.append("CommandExecutionTime(");
+            sb.append(time);
+            sb.append(',');
+            sb.append(unit.name());
+            sb.append(')');
+            return sb.toString();
+        }
 
-	private static ConnectionState parseConnectionState(StringTokenizer st) {
-		checkArgument(st.hasMoreTokens(), "Insufficient data to parse ConnectionState");
-		final String code = st.nextToken();
-		if (code.equalsIgnoreCase("N")) {
-			return ConnectionState.Unconnected();
-		} else if ((code.startsWith("C(") || code.startsWith("c(")) && code.endsWith(")")) {
-			final String hostname = code.substring(2, code.length() - 1);
-			checkArgument(HOST.matcher(hostname).matches(), "Invalid ConnectionState: %s", code);
-			return ConnectionState.Connected(hostname);
-		} else {
-			throw new IllegalArgumentException("Invalid ConnectionState: " + code);
-		}
-	}
+        public static CommandExecutionTime NoHostResponse() {
+            return NO_HOST_RESPONSE;
+        }
 
-	private static int parseInt(StringTokenizer st, String field, int min, int max) {
-		return parseInt(st, field, 10, min, max);
-	}
+        public static CommandExecutionTime HostResponseTook(long time, TimeUnit unit) {
+            checkArgument(time > 0, "Time must be non-negative: %d", time);
+            checkNotNull(unit, "unit");
+            checkArgument((MILLISECONDS.compareTo(unit) <= 0) && (SECONDS.compareTo(unit) >= 0), "Unit must be either SECONDS or MILLISECONDS: %s", unit);
+            return new CommandExecutionTime(time, unit);
+        }
+    }
 
-	private static int parseInt(StringTokenizer st, String field, int radix, int min, int max) {
-		checkArgument(st.hasMoreTokens(), "Insufficient data to parse %s", field);
-		final String code = st.nextToken();
-		try {
-			checkArgument((radix != 16) || code.startsWith("0x"), "Invalid %s: %s", field, code);
-			final int n = Integer.parseInt((radix == 16) ? code.substring(2) : code, radix);
-			checkArgument((n >= min) && (n <= max), "Invalid %s: %s", field, code);
-			return n;
-		} catch (NumberFormatException exc) {
-			throw new IllegalArgumentException("Invalid " + field + ": " + code, exc);
-		}
-	}
+    public enum Code {
+        Ok, Error;
 
-	private static CommandExecutionTime parseCommandExecutionTime(StringTokenizer st) {
-		checkArgument(st.hasMoreTokens(), "Insufficient data to parse CommandExecutionTime");
-		final String code = st.nextToken();
-		if (code.equals("-")) {
-			return CommandExecutionTime.NO_HOST_RESPONSE;
-		} else {
-			final Matcher m = CommandExecutionTime.PATTERN.matcher(code);
-			checkArgument(m.matches(), "Invalid CommandExecutionTime: %s", code);
-			try {
-				final String g1 = m.group(1);
-				final String g2 = m.group(2);
-				final long s = Long.parseLong(g1);
-				if (g2 == null) {
-					return new CommandExecutionTime(s, TimeUnit.SECONDS);
-				} else {
-					final long ms = Long.parseLong(g2);
-					checkArgument(s < Long.MAX_VALUE / 1000, "Invalid CommandExecutionTime: %s", code);
-					return new CommandExecutionTime(s * 1000 + (ms >= 100 ? ms : ms >= 10 ? ms * 10 : ms * 100), TimeUnit.MILLISECONDS);
-				}
-			} catch (NumberFormatException exc) {
-				throw new IllegalArgumentException("Invalid CommandExecutionTime: " + code, exc);
-			}
-		}
-	}
+        private Object readResolve() {
+            return Code.valueOf(name());
+        }
 
-	private static int count(String s, String t) {
-		int count = 0;
-		for (int i = -1; (i = s.indexOf(t, i + 1)) >= 0; i++) {
-			count++;
-		}
-		return count;
-	}
+        @Override
+        public String toString() {
+            return name().toLowerCase();
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <E extends Enum<E>> E parse(StringTokenizer st, String label, E value, Object... choices) {
+        checkArgument(st.hasMoreTokens(), "Insufficient data to parse %s", value.getDeclaringClass().getSimpleName());
+        final String s = st.nextToken();
+        if (s.equalsIgnoreCase(label)) {
+            return value;
+        }
+        for (int i = 0; i < choices.length; i += 2) {
+            if (s.equalsIgnoreCase((String) choices[i])) {
+                return (E) choices[i + 1];
+            }
+        }
+        throw new IllegalArgumentException("Invalid value for " + value.getDeclaringClass().getSimpleName() + ": '" + s + "'");
+    }
+
+    private static ConnectionState parseConnectionState(StringTokenizer st) {
+        checkArgument(st.hasMoreTokens(), "Insufficient data to parse ConnectionState");
+        final String code = st.nextToken();
+        if (code.equalsIgnoreCase("N")) {
+            return ConnectionState.Unconnected();
+        } else if ((code.startsWith("C(") || code.startsWith("c(")) && code.endsWith(")")) {
+            final String hostname = code.substring(2, code.length() - 1);
+            checkArgument(HOST.matcher(hostname).matches(), "Invalid ConnectionState: %s", code);
+            return ConnectionState.Connected(hostname);
+        } else {
+            throw new IllegalArgumentException("Invalid ConnectionState: " + code);
+        }
+    }
+
+    private static int parseInt(StringTokenizer st, String field, int min, int max) {
+        return parseInt(st, field, 10, min, max);
+    }
+
+    private static int parseInt(StringTokenizer st, String field, int radix, int min, int max) {
+        checkArgument(st.hasMoreTokens(), "Insufficient data to parse %s", field);
+        final String code = st.nextToken();
+        try {
+            checkArgument((radix != 16) || code.startsWith("0x"), "Invalid %s: %s", field, code);
+            final int n = Integer.parseInt((radix == 16) ? code.substring(2) : code, radix);
+            checkArgument((n >= min) && (n <= max), "Invalid %s: %s", field, code);
+            return n;
+        } catch (NumberFormatException exc) {
+            throw new IllegalArgumentException("Invalid " + field + ": " + code, exc);
+        }
+    }
+
+    private static CommandExecutionTime parseCommandExecutionTime(StringTokenizer st) {
+        checkArgument(st.hasMoreTokens(), "Insufficient data to parse CommandExecutionTime");
+        final String code = st.nextToken();
+        if (code.equals("-")) {
+            return CommandExecutionTime.NO_HOST_RESPONSE;
+        } else {
+            final Matcher m = CommandExecutionTime.PATTERN.matcher(code);
+            checkArgument(m.matches(), "Invalid CommandExecutionTime: %s", code);
+            try {
+                final String g1 = m.group(1);
+                final String g2 = m.group(2);
+                final long s = Long.parseLong(g1);
+                if (g2 == null) {
+                    return new CommandExecutionTime(s, TimeUnit.SECONDS);
+                } else {
+                    final long ms = Long.parseLong(g2);
+                    checkArgument(s < Long.MAX_VALUE / 1000, "Invalid CommandExecutionTime: %s", code);
+                    return new CommandExecutionTime(s * 1000 + (ms >= 100 ? ms : ms >= 10 ? ms * 10 : ms * 100), TimeUnit.MILLISECONDS);
+                }
+            } catch (NumberFormatException exc) {
+                throw new IllegalArgumentException("Invalid CommandExecutionTime: " + code, exc);
+            }
+        }
+    }
+
+    private static int count(String s, String t) {
+        int count = 0;
+        for (int i = -1; (i = s.indexOf(t, i + 1)) >= 0; i++) {
+            count++;
+        }
+        return count;
+    }
 }

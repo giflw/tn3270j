@@ -7,7 +7,7 @@ package com.itquasar.multiverse.tn3270j.status;
  * If connected in unnegotiated mode (no BIND active from the host), the letter P.
  * If not connected, the letter N.
  *
- * @see http://x3270.bgp.nu/Unix/x3270-script.html#Status-Format
+ * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Status-Format">Status-Format</a>
  */
 public enum EmulatorMode implements StatusCode {
     _3270("I"),

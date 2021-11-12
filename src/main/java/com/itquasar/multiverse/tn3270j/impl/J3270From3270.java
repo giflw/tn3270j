@@ -5,13 +5,16 @@ import com.itquasar.multiverse.tn3270j.TN3270j;
 import com.itquasar.multiverse.tn3270j.TN3270jException;
 import com.itquasar.multiverse.tn3270j.WaitMode;
 import com.j3270.base.J3270;
+import com.j3270.base.J3270Exception;
 import com.j3270.base.ProcessPiper;
 import com.j3270.base.Timeout;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.TimeUnit;
 
 import static com.itquasar.multiverse.tn3270j.Util.sneakyThrow;
 
+@Slf4j
 public final class J3270From3270 implements TN3270j {
 
     public static final String IMPLEMENTATION_ID = "3270/j3270";
@@ -41,14 +44,16 @@ public final class J3270From3270 implements TN3270j {
         if (this.j3270 == null) {
             this.j3270 = sneakyThrow(() -> new J3270(new ProcessPiper(this.processBuilder)));
         }
+        System.out.println("J3270 started: " + this.j3270);
     }
 
     @Override
     public void connect(String url) {
-        sneakyThrow(() -> {
+        try {
             this.j3270.connect(url);
-            return null;
-        });
+        } catch (J3270Exception e) {
+            throw new Error("Error connecting to " + url, e);
+        }
     }
 
     @Override
@@ -65,7 +70,13 @@ public final class J3270From3270 implements TN3270j {
 
     @Override
     public boolean connected() {
-        return started() && status().getConnectionState() != null && status().getConnectionState().connected();
+        boolean connected = false;
+        try {
+            connected = started() && status().getConnectionState() != null && status().getConnectionState().connected();
+        } catch (Exception ex) {
+            LOGGER.error("Error getting connection status", ex);
+        }
+        return connected;
     }
 
     @Override
@@ -76,7 +87,9 @@ public final class J3270From3270 implements TN3270j {
     @Override
     public void disconnect() {
         sneakyThrow(() -> {
-            j3270.disconnect();
+            if(j3270 != null) {
+                j3270.disconnect();
+            }
             return null;
         });
     }
@@ -84,7 +97,9 @@ public final class J3270From3270 implements TN3270j {
     @Override
     public void stop() {
         this.j3270 = sneakyThrow(() -> {
-            j3270.close();
+            if (j3270 != null) {
+                j3270.close();
+            }
             return null;
         });
     }

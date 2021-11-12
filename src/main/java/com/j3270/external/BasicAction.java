@@ -32,7 +32,7 @@ import com.j3270.base.ToggleMode;
 import com.j3270.base.ToggleOption;
 
 /**
- * @see http://x3270.bgp.nu/Unix/s3270-man.html#Actions
+ * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
  * @author Daniel Yokomizo
  */
 public enum BasicAction implements Action {
