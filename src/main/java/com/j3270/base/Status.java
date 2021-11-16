@@ -13,6 +13,8 @@
  */
 package com.j3270.base;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.Serializable;
 import java.util.StringTokenizer;
 import java.util.concurrent.TimeUnit;
@@ -28,6 +30,7 @@ import static java.util.concurrent.TimeUnit.*;
  * @author Daniel Yokomizo
  * @see <a href="http://x3270.bgp.nu/Unix/x3270-script.html#Status-Format">Status-Format</a>
  */
+@Slf4j
 public final class Status implements Serializable {
     private static final long serialVersionUID = -968581656104103545L;
     private final String status;
@@ -49,14 +52,16 @@ public final class Status implements Serializable {
         checkNotNull(status, "status");
 
         int idx = 0;
-
         Matcher matcher = Pattern.compile("([LUE] ).*").matcher(status);
         if (matcher.find()) {
             idx = matcher.start();
         }
         status = status.substring(idx);
 
+        LOGGER.debug(status.replaceAll("\n", "|"));
+
         checkArgument(count(status, " ") == 11, "Invalid status: %s", status);
+
         try {
             final StringTokenizer st = new StringTokenizer(status);
             this.status = status;

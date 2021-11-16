@@ -53,12 +53,51 @@ public interface TN3270j extends AutoCloseable {
     void write(int row, int col, String content);
 
     /**
-     * Writes in the actual cursor position.
-     *
+     * @param row     Row starting with 1.
+     * @param col     Column starting with 1.
+     * @param length  Max length accepted by field. Throws exception if {@code content.length() > length}.
      * @param content Content to write.
      */
-    default void write(String content) {
-        write(0, 0, content);
+    default void write(int row, int col, int length, String content) {
+        this.write(row, col, length, content, null);
+    }
+
+
+    /**
+     * @param row     Row starting with 1.
+     * @param col     Column starting with 1.
+     * @param length  Max length accepted by field. Throws exception if {@code content.length() > length}.
+     * @param content Content to write.
+     * @param fieldName Name of field to return on length error.
+     */
+    default void write(int row, int col, int length, String content, String fieldName) {
+        if (content.length() > length) {
+            String fieldMessage = fieldName != null ? " on field " + fieldName : "";
+            throw new IllegalArgumentException("Content [" + content + "]" +fieldMessage+ " has length greater than " + length);
+        }
+        this.write(row, col, content);
+    }
+
+    /**
+     * Writes in the actual cursor position.
+     *
+     * @param contents Content to write.
+     */
+    default void write(String... contents) {
+        for (String content : contents) {
+            this.write(0, 0, content);
+        }
+    }
+
+    /**
+     * Writes in the actual cursor position.
+     *
+     * @param contents Content to write.
+     */
+    default void write(Number... contents) {
+        for (Number content : contents) {
+            this.write(0, 0, content.toString());
+        }
     }
 
     /**
