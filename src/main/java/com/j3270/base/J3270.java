@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import static com.j3270.base.Extras.checkArgument;
@@ -602,6 +603,22 @@ public final class J3270 implements Cloneable, Closeable {
             sb.append('"');
         }
         sb.append(')');
+        perform(sb.toString(), blocking);
+    }
+
+    /**
+     * String action.
+     *
+     * @param string
+     * @throws IllegalArgumentException the strings is empty or any of them contain invalid characters
+     * @throws J3270Exception           if the action fails for any reason
+     * @see <a href="http://x3270.bgp.nu/Unix/s3270-man.html#Actions">Actions</a>
+     * @see Patterns#STRING
+     */
+    public void string(String string) throws IllegalArgumentException, J3270Exception {
+        final String s = checkString(string, "Invalid string: %s", string);
+        final StringBuilder sb = new StringBuilder();
+        sb.append("String(\"").append(s).append("\")");
         perform(sb.toString(), blocking);
     }
 
@@ -1342,23 +1359,46 @@ public final class J3270 implements Cloneable, Closeable {
     }
 
     private void processMessage(String msg) {
+        if (msg == null) {
+            return;
+        }
+        if (msg.contains("[Press <Enter>]")) {
+            return;
+        }
         try {
             String s = msg;
-            data = new ArrayList<>();
-            while (s.startsWith("data: ")) {
-                final int i = s.indexOf('\n');
-                if (i < 0) {
-                    data.add(s.substring(6));
-                    s = null;
-                } else {
-                    data.add(s.substring(6, i));
-                    s = s.substring(i + 1);
+            while (!s.trim().isEmpty()) {
+                data = new ArrayList<>();
+                while (s.startsWith("data: ")) {
+                    final int i = s.indexOf('\n');
+                    if (i < 0) {
+                        data.add(s.substring(6));
+                        return;
+                    } else {
+                        data.add(s.substring(6, i));
+                        s = s.substring(i + 1);
+                    }
+                }
+
+                int idxOk = s.indexOf("ok") + 2;
+                int idxError = s.indexOf("error") + 5;
+                int idx = s.length();
+
+                idxOk = idxOk < 11 ? idx : idxOk;
+                idxError = idxError < 11 ? idx : idxError;
+
+                if (idxOk > 11 && (idxError == -1 || idxOk < idxError)) {
+                    idx = idxOk;
+                } else if (idxError > 11 && (idxOk == -1 || idxError < idxOk)) {
+                    idx = idxOk;
+                }
+
+                if (idx > 11) {
+                    String ss = s.substring(0, idx);
+                    s = s.replace(ss, "").trim();
+                    status = new Status(ss);
                 }
             }
-            if (s.contains("[Press <Enter>]")) {
-                return;
-            }
-            status = new Status(s);
         } finally {
             data = Collections.unmodifiableList(data);
         }

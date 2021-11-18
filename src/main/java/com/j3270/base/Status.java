@@ -56,11 +56,11 @@ public final class Status implements Serializable {
         if (matcher.find()) {
             idx = matcher.start();
         }
-        status = status.substring(idx);
+        status = status.substring(idx).trim();
 
         LOGGER.debug(status.replaceAll("\n", "|"));
 
-        checkArgument(count(status, " ") == 11, "Invalid status: %s", status);
+        checkArgument(count(status, " ") == 11, "Invalid status: [%s]", status.replaceAll("\r", "[CR]").replaceAll("\n", "[LF]\n"));
 
         try {
             final StringTokenizer st = new StringTokenizer(status);
