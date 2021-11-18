@@ -1395,7 +1395,8 @@ public final class J3270 implements Cloneable, Closeable {
 
                 if (idx > 11) {
                     String ss = s.substring(0, idx);
-                    s = s.replace(ss, "").trim();
+                    s = s.replace(ss, "");
+                    s = s.length() > 1 ? s.substring(1) : s;
                     status = new Status(ss);
                 }
             }
