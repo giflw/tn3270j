@@ -1,19 +1,10 @@
 package com.itquasar.multiverse.tn3270j;
 
-import com.itquasar.multiverse.tn3270j.status.CommandExecutionTime;
-import com.itquasar.multiverse.tn3270j.status.ConnectionStatus;
-import com.itquasar.multiverse.tn3270j.status.EmulatorMode;
-import com.itquasar.multiverse.tn3270j.status.FieldProtection;
-import com.itquasar.multiverse.tn3270j.status.KeyboardState;
-import com.itquasar.multiverse.tn3270j.status.ScreenFormatting;
-import com.itquasar.multiverse.tn3270j.status.StatusCode;
-import com.itquasar.multiverse.tn3270j.status.Status;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.SneakyThrows;
+import com.itquasar.multiverse.tn3270j.status.*;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
 
@@ -64,6 +55,9 @@ public class TN3270Status implements StatusCode {
             return status;
         }
         for (Field field : status.getClass().getDeclaredFields()) {
+            if (field.getName().equals("LOGGER")) {
+                continue;
+            }
             try {
                 Field declaredField = object.getClass().getDeclaredField(field.getName());
                 declaredField.setAccessible(true);
@@ -75,7 +69,7 @@ public class TN3270Status implements StatusCode {
                 }
                 field.set(status, value);
             } catch (Throwable throwable) {
-                LOGGER.error("Error building status object: " + throwable);
+                LOGGER.error("Error building status object: " + throwable, throwable);
             }
         }
         return status;
