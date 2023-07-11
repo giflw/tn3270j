@@ -5,7 +5,7 @@
 
     <groupId>com.itquasar.multiverse.tn3270j</groupId>
     <artifactId>tn3270j</artifactId>
-    <version>0.4.3-SNAPSHOT</version>
+    <version>0.4.3</version>
 
     <name>TN3270j</name>
     <description>TN3270 Java library wrapping x3270/wc3270</description>
